@@ -1,22 +1,32 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
-from database import SessionLocal
-from models import Post
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
+from sqlalchemy.orm import relationship
+from database import Base
+from datetime import datetime
 
-app = FastAPI()
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+    posts = relationship('Post', back_populates='user')
+    replies = relationship('Reply', back_populates='user')
 
-# 依存関係
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+class Post(Base):
+    __tablename__ = 'posts'
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, index=True)
+    content = Column(Text, index=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship('User', back_populates='posts')
+    replies = relationship('Reply', back_populates='post')
 
-@app.post("/posts/")
-def create_post(title: str, content: str, db: Session = Depends(get_db)):
-    db_post = Post(title=title, content=content)
-    db.add(db_post)
-    db.commit()
-    db.refresh(db_post)
-    return db_post
+class Reply(Base):
+    __tablename__ = 'replies'
+    id = Column(Integer, primary_key=True, index=True)
+    content = Column(Text, index=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    post_id = Column(Integer, ForeignKey('posts.id'))
+    user = relationship('User', back_populates='replies')
+    post = relationship('Post', back_populates='replies')
