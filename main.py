@@ -13,6 +13,7 @@ from my_fastapi_project.security import ACCESS_TOKEN_EXPIRE_MINUTES, create_acce
 
 from my_fastapi_project import models, schemas, crud
 from my_fastapi_project.database import SessionLocal, engine
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
@@ -24,6 +25,14 @@ def get_db():
     finally:
         db.close()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.post("/posts", response_model=schemas.Post)
 def create_post(post: schemas.PostCreate, db: Session = Depends(get_db)):
@@ -34,7 +43,7 @@ def read_posts(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     posts = crud.get_posts(db, skip=skip, limit=limit)
     return posts
 
-@app.post("/users/", response_model=schemas.User)
+@app.post("/users", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db=db, user=user)
 

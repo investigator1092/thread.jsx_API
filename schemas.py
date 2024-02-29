@@ -11,7 +11,7 @@ class PostCreate(PostBase):
 
 class Post(PostBase):
     id: int
-    create_at: datetime.datetime
+    created_at: datetime.datetime
 
     class Config:
         orm_mode = True
