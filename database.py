@@ -1,13 +1,11 @@
+import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # データベースの接続URLを設定
-# 例: SQLiteの場合
-DATABASE_URL = "postgresql://miyaharaiam:1234@localhost/react_fastapi_portfolio"
-
-# 例: PostgreSQLの場合
-# DATABASE_URL = "postgresql://user:password@localhost/dbname"
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # SQLAlchemyエンジンを作成
 engine = create_engine(DATABASE_URL)

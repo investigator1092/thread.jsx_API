@@ -1,10 +1,11 @@
 from datetime import timedelta
 import datetime
+import os
 from typing import Union
 from passlib.context import CryptContext
 from jose import jwt
 
-SECRET_KEY = '8aad81532641171269e0ce06588f380b2138d9971aefae4b5d52a4532f3cdb40'
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = 'HS256'
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 

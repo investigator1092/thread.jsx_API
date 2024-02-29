@@ -1,15 +1,21 @@
+import sys
+
+sys.path.append('/Users/miyaharaiam/Desktop/react_fastapi_portfolio')
+from dotenv import load_dotenv
+load_dotenv() # 環境変数をインポート
+
 from datetime import timedelta
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from typing import List
-from my_fastapi_project import crud
 from my_fastapi_project.security import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
 
-from . import models, schemas, crud
-from .database import SessionLocal, engine
+from my_fastapi_project import models, schemas, crud
+from my_fastapi_project.database import SessionLocal, engine
 
 app = FastAPI()
+
 
 def get_db():
     db = SessionLocal()
