@@ -6,8 +6,8 @@ from passlib.context import CryptContext
 from jose import jwt
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = 'HS256'
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ALGORITHM = os.getenv("HASH_ALGORITHM")
+ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

@@ -4,6 +4,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+load_dotenv()
+
 # データベースの接続URLを設定
 DATABASE_URL = os.getenv("DATABASE_URL")
 
