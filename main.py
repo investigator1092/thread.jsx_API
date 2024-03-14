@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+current_dir = Path(__file__).resolve().parent
+
+if (current_dir / 'my_fastapi_project').exists():
+    sys.path.appned(str(current_dir))
+
 from dotenv import load_dotenv
 load_dotenv() # 環境変数をインポート
 
@@ -6,10 +14,10 @@ from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from typing import List, Union
-from my_fastapi_project.security import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
+from security import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
 
 from my_fastapi_project import models, schemas, crud
-from my_fastapi_project.database import SessionLocal, engine
+from database import SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
