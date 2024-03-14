@@ -2,7 +2,7 @@ from typing import Union
 from sqlalchemy import asc, desc
 from sqlalchemy.orm import Session
 
-from my_fastapi_project.security import get_password_hash, verify_password
+from security import get_password_hash, verify_password
 from . import models, schemas
 
 def get_replies(db: Session, post_id: int):

@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session
 from typing import List, Union
 from security import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
 
-from my_fastapi_project import models, schemas, crud
+import schemas, crud
 from database import SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
 
