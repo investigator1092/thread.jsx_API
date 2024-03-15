@@ -3,7 +3,7 @@ from sqlalchemy import asc, desc
 from sqlalchemy.orm import Session
 
 from security import get_password_hash, verify_password
-from . import models, schemas
+import models, schemas
 
 def get_replies(db: Session, post_id: int):
     return db.query(models.Reply).filter(models.Reply.post_id == post_id).order_by(desc(models.Reply.created_at)).all()
