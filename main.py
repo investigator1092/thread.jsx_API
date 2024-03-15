@@ -1,10 +1,4 @@
 import sys
-from pathlib import Path
-
-current_dir = Path(__file__).resolve().parent
-
-if (current_dir / 'my_fastapi_project').exists():
-    sys.path.appned(str(current_dir))
 
 from dotenv import load_dotenv
 load_dotenv() # 環境変数をインポート
@@ -32,7 +26,9 @@ def get_db():
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://thread-jsx-c8bbfb530f22.herokuapp.com"],
+    allow_origins=["http://localhost:3000",
+                   "https://thread-jsx-c8bbfb530f22.herokuapp.com"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
